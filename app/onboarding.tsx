@@ -1,29 +1,21 @@
 import {
-  ArrowRightIcon,
   Avatar,
   AvatarFallbackText,
   Box,
   Button,
   ButtonIcon,
   ButtonText,
-  Checkbox,
   ChevronRightIcon,
-  CircleIcon,
-  EditIcon,
-  FormControl,
-  FormControlError,
-  FormControlErrorIcon,
-  FormControlErrorText,
-  FormControlLabelText,
   Input,
   InputField,
   Text,
   VStack,
+  View,
 } from '@gluestack-ui/themed';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import { Controller } from 'react-hook-form';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
 
 export default function Page() {
@@ -96,17 +88,120 @@ export default function Page() {
 
         {steps === 1 && (
           <>
-            <Text textAlign="center">
-              Hello <Text color="$purple">“Username”</Text> ! Let us know when
-              is your special day 🎂
-            </Text>
+            <LinearGradient
+              colors={['#FFDEE9', '#B5FFFC']}
+              style={{
+                width: 200,
+                height: 200,
+                backgroundColor: '#b3d9ff',
+                borderRadius: 100, // Half of height to create an oval shape
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 16,
+                transform: [{ scaleX: 1.5 }],
+              }}
+            >
+              <Text textAlign="center">
+                Hello <Text color="$purple">“Username”</Text> ! Let us know when
+                is your special day 🎂
+              </Text>
+            </LinearGradient>
             <DateTimePicker value={date} is24Hour={true} onChange={onChange} />
           </>
         )}
 
         {steps === 2 && (
           <>
-            <Text>Gender</Text>
+            <VStack flex={1} pt={64}>
+              <Text p={56} textAlign="center" bold>
+                Let us know you better by your gender 🌟
+              </Text>
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  overflow: 'hidden',
+                  bottom: 275,
+                  right: -75,
+                  width: 200,
+                  height: 200,
+                  borderRadius: '100%',
+                }}
+              >
+                <LinearGradient
+                  style={{
+                    width: 200,
+                    height: 200,
+                    borderRadius: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#99eeff',
+                  }}
+                  colors={['#FFDEE9', '#B5FFFC']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  locations={[0.4, 0.9]}
+                >
+                  <Text size={16} bold color="$black">
+                    Male
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  overflow: 'hidden',
+                  left: -60,
+                  bottom: 200,
+                  width: 200,
+                  height: 200,
+                  borderRadius: '100%',
+                }}
+              >
+                <LinearGradient
+                  style={{
+                    width: 200,
+                    height: 200,
+                    borderRadius: '100%',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#FFDEE9',
+                  }}
+                  colors={['#FFDEE9', '#B5FFFC']}
+                >
+                  <Text p={32} size={16} bold color="$black">
+                    LGBTQ and LGBTQ+
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  overflow: 'hidden',
+                  bottom: -75,
+                  width: 200,
+                  height: 200,
+                  borderRadius: 100,
+                }}
+              >
+                <LinearGradient
+                  style={{
+                    width: 200,
+                    height: 200,
+                    borderRadius: 100,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#FFDEE9',
+                  }}
+                  colors={['#FFDEE9', '#B5FFFC']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <Text size={16} bold color="$black">
+                    Female
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </VStack>
           </>
         )}
 
