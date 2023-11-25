@@ -12,6 +12,41 @@ import { useColorScheme } from 'react-native';
 import { config } from '../gluestack-ui.config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 
+const routes = [
+  {
+    name: 'index',
+    path: '/',
+    exact: true,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: 'login',
+    path: '/login',
+    exact: true,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: 'signup',
+    path: '/signup',
+    exact: true,
+    options: {
+      headerShown: false,
+    },
+  },
+  {
+    name: 'onboarding',
+    path: '/onboarding',
+    exact: true,
+    options: {
+      headerShown: false,
+    },
+  },
+];
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
