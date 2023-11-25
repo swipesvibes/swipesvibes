@@ -1,10 +1,13 @@
 import {
+  ArrowRightIcon,
   Avatar,
   AvatarFallbackText,
   Box,
   Button,
+  ButtonIcon,
   ButtonText,
   Checkbox,
+  ChevronRightIcon,
   CircleIcon,
   EditIcon,
   FormControl,
@@ -17,15 +20,23 @@ import {
   Text,
   VStack,
 } from '@gluestack-ui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import { Controller } from 'react-hook-form';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { TouchableOpacity } from 'react-native';
 
 export default function Page() {
-  const [avatar, setAvatar] = React.useState<string | null>(null);
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [steps, setSteps] = React.useState(0);
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [steps, setSteps] = useState(0);
+  const [date, setDate] = useState(new Date(1598051730000));
+
+  const onChange = (event: any, selectedDate: any) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+  };
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -53,9 +64,11 @@ export default function Page() {
       >
         {steps === 0 && (
           <>
-            <Avatar size="2xl" onPress={pickImage}>
-              <AvatarFallbackText>CHAIWAT TRISUWAN</AvatarFallbackText>
-            </Avatar>
+            <TouchableOpacity onPress={pickImage}>
+              <Avatar size="2xl">
+                <AvatarFallbackText>Swipes Vibes</AvatarFallbackText>
+              </Avatar>
+            </TouchableOpacity>
             <Text textAlign="center">
               Pick a username for your new account! You can always change it
               later 🙌🏻
@@ -87,6 +100,7 @@ export default function Page() {
               Hello <Text color="$purple">“Username”</Text> ! Let us know when
               is your special day 🎂
             </Text>
+            <DateTimePicker value={date} is24Hour={true} onChange={onChange} />
           </>
         )}
 
@@ -95,8 +109,21 @@ export default function Page() {
             <Text>Gender</Text>
           </>
         )}
-        <Button>
-          <ButtonText onPress={() => setSteps(steps + 1)}>Next</ButtonText>
+
+        <Button
+          variant="link"
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 20,
+          }}
+        >
+          <ButtonText mr={6} onPress={() => setSteps(steps + 1)}>
+            Next
+          </ButtonText>
+          <ButtonIcon>
+            <ChevronRightIcon />
+          </ButtonIcon>
         </Button>
       </VStack>
     </>
