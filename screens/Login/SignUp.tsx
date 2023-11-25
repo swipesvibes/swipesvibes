@@ -48,6 +48,8 @@ import StyledExpoRouterLink from '../../components/StyledExpoRouterLink';
 import { router } from 'expo-router';
 
 import { styled } from '@gluestack-style/react';
+import { View } from '../../components/Themed';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const StyledImage = styled(Image, {
   props: {
@@ -208,9 +210,37 @@ const SignUpForm = () => {
     });
   };
 
+  // background: linear-gradient(109.68deg, #E6FFFF 1.14%, #EBF5D5 45.75%, #F5D3E1 91.13%);
+
   return (
     <>
       <VStack justifyContent="center" height="$full">
+        <Heading
+          textAlign="center"
+          color="$textLight50"
+          sx={{ _dark: { color: '$textDark50' } }}
+          size="2xl"
+        >
+          Welcome to swipe! 🌈
+        </Heading>
+
+        <HStack my={36} space="md" alignItems="center" justifyContent="center">
+          <Text
+            color="$textLight500"
+            sx={{
+              _dark: {
+                color: '$textDark400',
+              },
+            }}
+            fontSize="$sm"
+          >
+            Already have an account?
+          </Text>
+          <StyledExpoRouterLink href="/login">
+            <LinkText fontSize="$sm">Sign In</LinkText>
+          </StyledExpoRouterLink>
+        </HStack>
+
         <FormControl
           isInvalid={(!!errors.email || isEmailFocused) && !!errors.email}
           isRequired={true}
@@ -299,11 +329,13 @@ const SignUpForm = () => {
           variant="solid"
           size="lg"
           // onPress={handleSubmit(onSubmit)}
-          onPress={() => router.push('/login')}
+          onPress={() => router.push('/onboarding')}
+          backgroundColor="rgba(167, 139, 250, 0.7)"
         >
-          <ButtonText fontSize="$sm">Sign up</ButtonText>
+          <ButtonText fontSize="$sm">Log in</ButtonText>
         </Button>
       </VStack>
+
       {/* <Controller
         name="rememberme"
         defaultValue={false}
@@ -370,38 +402,12 @@ function SignUpFormComponent() {
     <>
       <Box
         flex={1}
-        bg="$backgroundLight0"
-        sx={{
-          '@md': {
-            px: '$8',
-            borderTopLeftRadius: '$none',
-            borderTopRightRadius: '$none',
-            borderBottomRightRadius: '$none',
-          },
-          '_dark': {
-            bg: '$backgroundDark800',
-          },
-        }}
         px="$4"
         py="$8"
         justifyContent="space-between"
         height="$full"
-        // borderTopLeftRadius="$2xl"
-        // borderTopRightRadius="$2xl"
-        // borderBottomRightRadius="$none"
       >
-        {/* <Heading
-          display="none"
-          mb="$8"
-          sx={{
-            '@md': { display: 'flex', fontSize: '$2xl' },
-          }}
-        >
-          Sign up to continue
-        </Heading> */}
-
         <SignUpForm />
-
         {/* <HStack my="$4" space="md" alignItems="center" justifyContent="center">
           <Divider
             w="$2/6"
@@ -444,7 +450,6 @@ function SignUpFormComponent() {
             </Button>
           </Link>
         </HStack> */}
-
         <HStack
           space="xs"
           alignItems="center"
@@ -453,18 +458,13 @@ function SignUpFormComponent() {
         >
           <Text
             color="$textLight500"
-            sx={{
-              _dark: {
-                color: '$textDark400',
-              },
-            }}
             fontSize="$sm"
+            sx={{ _dark: { color: '$textDark400' } }}
           >
-            Already have an account?
+            Don't have an account?
           </Text>
-
-          <StyledExpoRouterLink href="/login">
-            <LinkText fontSize="$sm">Sign In</LinkText>
+          <StyledExpoRouterLink href="/signup">
+            <LinkText fontSize="$sm">Sign up</LinkText>
           </StyledExpoRouterLink>
         </HStack>
       </Box>
@@ -474,21 +474,17 @@ function SignUpFormComponent() {
 
 export default function SignUp() {
   return (
-    <GuestLayout>
-      {/* <Box
-        sx={{
-          '@md': {
-            display: 'flex',
-          },
-        }}
-        flex={1}
-        display="none"
+    <View style={{ flex: 1 }}>
+      <LinearGradient
+        colors={['#E6FFFF', '#EBF5D5', '#F5D3E1']}
+        style={{ flex: 1 }}
+        start={{ x: 0, y: 1 }} // Horizontal center (x: 0.5), top (y: 0)
+        end={{ x: 1, y: 1 }} // Horizontal center (x: 0.5), bottom (y: 1)
       >
-        <SideContainerWeb />
-      </Box> */}
-      <Box flex={1}>
-        <SignUpFormComponent />
-      </Box>
-    </GuestLayout>
+        <Box flex={1}>
+          <SignUpFormComponent />
+        </Box>
+      </LinearGradient>
+    </View>
   );
 }

@@ -15,6 +15,8 @@ import StyledExpoRouterLink from '../../components/StyledExpoRouterLink';
 import { styled } from '@gluestack-style/react';
 
 import { Link } from 'expo-router';
+import { View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const StyledImage = styled(Image, {
   '@sm': {

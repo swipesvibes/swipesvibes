@@ -205,7 +205,7 @@ const SignInForm = () => {
       <StyledExpoRouterLink ml="auto" href="/forgot-password">
         <LinkText fontSize="$xs">Forgot password?</LinkText>
       </StyledExpoRouterLink>
-      <Controller
+      {/* <Controller
         name="rememberme"
         defaultValue={false}
         control={control}
@@ -224,14 +224,14 @@ const SignInForm = () => {
             <CheckboxLabel>Remember me and keep me logged in</CheckboxLabel>
           </Checkbox>
         )}
-      />
+      /> */}
       <Button
         variant="solid"
         size="lg"
         mt="$5"
         onPress={handleSubmit(onSubmit)}
       >
-        <ButtonText fontSize="$sm"> SIGN IN</ButtonText>
+        <ButtonText fontSize="$sm">SIGN IN</ButtonText>
       </Button>
     </>
   );
@@ -298,39 +298,12 @@ function MobileHeader() {
 const Main = () => {
   return (
     <>
-      {/* <Box sx={{ '@md': { display: 'none' } }}>
-        <MobileHeader />
-      </Box> */}
-      <Box
-        px="$4"
-        sx={{
-          '@md': {
-            px: '$8',
-            borderTopLeftRadius: '$none',
-            borderTopRightRadius: '$none',
-            borderBottomRightRadius: '$none',
-          },
-          '_dark': { bg: '$backgroundDark800' },
-        }}
-        py="$8"
-        flex={1}
-        bg="$backgroundLight0"
-        justifyContent="space-between"
-        borderTopLeftRadius="$2xl"
-        borderTopRightRadius="$2xl"
-        borderBottomRightRadius="$none"
-      >
-        <Heading
-          display="none"
-          mb="$8"
-          sx={{
-            '@md': { display: 'flex', fontSize: '$2xl' },
-          }}
-        >
+      <Box px="$4" py="$8" flex={1}>
+        <Heading display="none" mb="$8">
           Sign in to continue
         </Heading>
         <SignInForm />
-        <HStack my="$4" space="md" alignItems="center" justifyContent="center">
+        {/* <HStack my="$4" space="md" alignItems="center" justifyContent="center">
           <Divider
             w="$2/6"
             bg="$backgroundLight200"
@@ -348,8 +321,8 @@ const Main = () => {
             bg="$backgroundLight200"
             sx={{ _dark: { bg: '$backgroundDark700' } }}
           />
-        </HStack>
-        <HStack
+        </HStack> */}
+        {/* <HStack
           mt="$6"
           sx={{
             '@md': {
@@ -371,7 +344,7 @@ const Main = () => {
               <ButtonIcon as={GoogleIcon} />
             </Button>
           </Link>
-        </HStack>
+        </HStack> */}
         <HStack
           space="xs"
           alignItems="center"
