@@ -34,7 +34,7 @@ export default function GuestLayout(props: GuestLayoutProps) {
               justifyContent: 'center',
             }}
             sx={{
-              '@base': { _light: { bg: '$primary500' } },
+              '@base': { _light: { bg: '$black' } },
               '@md': { _light: { bg: '$primary900' }, p: '$8' },
               '_dark': { bg: '$backgroundDark900' },
             }}

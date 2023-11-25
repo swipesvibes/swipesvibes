@@ -210,7 +210,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <VStack justifyContent="space-between">
+      <VStack justifyContent="center" height="$full">
         <FormControl
           isInvalid={(!!errors.email || isEmailFocused) && !!errors.email}
           isRequired={true}
@@ -294,52 +294,17 @@ const SignUpForm = () => {
             </FormControlErrorText>
           </FormControlError>
         </FormControl>
-
-        <FormControl isInvalid={!!errors.confirmpassword} isRequired={true}>
-          <Controller
-            defaultValue=""
-            name="confirmpassword"
-            control={control}
-            rules={{
-              validate: async (value) => {
-                try {
-                  await signUpSchema.parseAsync({
-                    password: value,
-                  });
-
-                  return true;
-                } catch (error: any) {
-                  return error.message;
-                }
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input>
-                <InputField
-                  placeholder="Confirm Password"
-                  fontSize="$sm"
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  onSubmitEditing={handleKeyPress}
-                  returnKeyType="done"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                />
-                <InputSlot onPress={handleConfirmPwState} pr="$3">
-                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
-                </InputSlot>
-              </Input>
-            )}
-          />
-          <FormControlError>
-            <FormControlErrorIcon size="sm" as={AlertTriangle} />
-            <FormControlErrorText>
-              {errors?.confirmpassword?.message}
-            </FormControlErrorText>
-          </FormControlError>
-        </FormControl>
+        <Button
+          mt="$5"
+          variant="solid"
+          size="lg"
+          // onPress={handleSubmit(onSubmit)}
+          onPress={() => router.push('/login')}
+        >
+          <ButtonText fontSize="$sm">Sign up</ButtonText>
+        </Button>
       </VStack>
-      <Controller
+      {/* <Controller
         name="rememberme"
         defaultValue={false}
         control={control}
@@ -395,15 +360,7 @@ const SignUpForm = () => {
             </CheckboxLabel>
           </Checkbox>
         )}
-      />
-      <Button
-        mt="$5"
-        variant="solid"
-        size="lg"
-        onPress={handleSubmit(onSubmit)}
-      >
-        <ButtonText fontSize="$sm">SIGN UP</ButtonText>
-      </Button>
+      /> */}
     </>
   );
 };
@@ -411,16 +368,6 @@ const SignUpForm = () => {
 function SignUpFormComponent() {
   return (
     <>
-      <Box
-        sx={{
-          '@md': {
-            display: 'none',
-          },
-        }}
-      >
-        <MobileHeader />
-      </Box>
-
       <Box
         flex={1}
         bg="$backgroundLight0"
@@ -438,11 +385,12 @@ function SignUpFormComponent() {
         px="$4"
         py="$8"
         justifyContent="space-between"
-        borderTopLeftRadius="$2xl"
-        borderTopRightRadius="$2xl"
-        borderBottomRightRadius="$none"
+        height="$full"
+        // borderTopLeftRadius="$2xl"
+        // borderTopRightRadius="$2xl"
+        // borderBottomRightRadius="$none"
       >
-        <Heading
+        {/* <Heading
           display="none"
           mb="$8"
           sx={{
@@ -450,11 +398,11 @@ function SignUpFormComponent() {
           }}
         >
           Sign up to continue
-        </Heading>
+        </Heading> */}
 
         <SignUpForm />
 
-        <HStack my="$4" space="md" alignItems="center" justifyContent="center">
+        {/* <HStack my="$4" space="md" alignItems="center" justifyContent="center">
           <Divider
             w="$2/6"
             bg="$backgroundLight200"
@@ -472,8 +420,8 @@ function SignUpFormComponent() {
             bg="$backgroundLight200"
             sx={{ _dark: { bg: '$backgroundDark700' } }}
           />
-        </HStack>
-        <HStack
+        </HStack> */}
+        {/* <HStack
           sx={{
             '@md': {
               mt: '$4',
@@ -495,7 +443,7 @@ function SignUpFormComponent() {
               <ButtonIcon as={GoogleIcon} size="md" />
             </Button>
           </Link>
-        </HStack>
+        </HStack> */}
 
         <HStack
           space="xs"
@@ -527,7 +475,7 @@ function SignUpFormComponent() {
 export default function SignUp() {
   return (
     <GuestLayout>
-      <Box
+      {/* <Box
         sx={{
           '@md': {
             display: 'flex',
@@ -537,7 +485,7 @@ export default function SignUp() {
         display="none"
       >
         <SideContainerWeb />
-      </Box>
+      </Box> */}
       <Box flex={1}>
         <SignUpFormComponent />
       </Box>

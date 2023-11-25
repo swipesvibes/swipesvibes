@@ -6,12 +6,15 @@ import {
   Image,
   Center,
   ButtonText,
+  Text,
 } from '@gluestack-ui/themed';
 
 import GuestLayout from '../../layouts/GuestLayout';
 import StyledExpoRouterLink from '../../components/StyledExpoRouterLink';
 
 import { styled } from '@gluestack-style/react';
+
+import { Link } from 'expo-router';
 
 const StyledImage = styled(Image, {
   '@sm': {
@@ -129,26 +132,46 @@ export default function SplashScreen() {
     // Wrapper component includes the <GluestackUIProvider></GluestackUIProvider>
     // place GluestackUIProvider in your app root accordingly
     // remove Wrapper tag from here in your codebase
-    <GuestLayout>
-      <Center w="$full" flex={1}>
-        <Box
-          maxWidth="$508"
-          w="$full"
-          minHeight="$authcard"
-          sx={{
-            '@md': {
-              // h: '$authcard',
-              px: '$8',
-              bg: '$primary500',
-            },
+
+    <Center w="$full" flex={1}>
+      <Box
+        maxWidth="$508"
+        w="$full"
+        minHeight="$authcard"
+        sx={{
+          '@md': {
+            // h: '$authcard',
+            px: '$8',
+          },
+        }}
+        px="$4"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+      >
+        {/* <Image
+          alt="swipesvibes"
+          source={{
+            uri: './assets/images/logo.png',
           }}
-          px="$4"
-          justifyContent="center"
-        >
-          <HeaderLogo />
-          <ActionButtons />
+        /> */}
+
+        <Box my={24}>
+          <Center>
+            <Text size="5xl" fontWeight="700">
+              Swipe
+            </Text>
+            <Text size="xl">“Share your vibes with swipe”</Text>
+          </Center>
         </Box>
-      </Center>
-    </GuestLayout>
+
+        <Link href="/signup" asChild>
+          <Button size="xl">
+            <Text color="$white">Start! 🌟</Text>
+          </Button>
+        </Link>
+      </Box>
+    </Center>
   );
 }

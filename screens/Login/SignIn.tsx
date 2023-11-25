@@ -298,9 +298,9 @@ function MobileHeader() {
 const Main = () => {
   return (
     <>
-      <Box sx={{ '@md': { display: 'none' } }}>
+      {/* <Box sx={{ '@md': { display: 'none' } }}>
         <MobileHeader />
-      </Box>
+      </Box> */}
       <Box
         px="$4"
         sx={{
