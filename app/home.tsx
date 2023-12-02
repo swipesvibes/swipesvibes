@@ -32,7 +32,13 @@ export default function Home() {
           borderWidth: 1,
           margin: 10,
           padding: 8,
-          borderRadius: 5,
+          borderRadius: 20, // Adjust the border radius as needed
+          position: 'absolute',
+          top: 50,
+          left: 10,
+          right: 10,
+          zIndex: 2,
+          backgroundColor: 'white',
         }}
       />
       <MapView
@@ -60,7 +66,6 @@ export default function Home() {
           zIndex: 2,
         }}
         onPress={() => {
-          // Handle FAB press
           console.log('FAB Pressed');
         }}
       >
