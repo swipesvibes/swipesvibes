@@ -13,41 +13,6 @@ import { config } from '../gluestack-ui.config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const routes = [
-  {
-    name: 'index',
-    path: '/',
-    exact: true,
-    options: {
-      headerShown: false,
-    },
-  },
-  {
-    name: 'login',
-    path: '/login',
-    exact: true,
-    options: {
-      headerShown: false,
-    },
-  },
-  {
-    name: 'signup',
-    path: '/signup',
-    exact: true,
-    options: {
-      headerShown: false,
-    },
-  },
-  {
-    name: 'onboarding',
-    path: '/onboarding',
-    exact: true,
-    options: {
-      headerShown: false,
-    },
-  },
-];
-
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -98,6 +63,8 @@ function RootLayoutNav() {
           <Stack.Screen name="signup" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="home" options={{ headerShown: false }} />
+          {/* <Stack.Screen name="profile" options={{ headerShown: false }} />
+          <Stack.Screen name="settings" options={{ headerShown: false }} /> */}
           {/* <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
         <Stack.Screen name="verify-otp" options={{ headerShown: false }} />
         <Stack.Screen name="create-password" options={{ headerShown: false }} /> */}
