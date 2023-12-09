@@ -111,28 +111,29 @@ const SignInForm = () => {
     handleSubmit(onSubmit)();
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
   GoogleSignin.configure({
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
     iosClientId:
       '811144421713-lgup0q377lnvj9jul6apvc02a0s1io2v.apps.googleusercontent.com',
   });
 
   return (
     <VStack justifyContent="space-between">
-      <GoogleSigninButton
+      {/* <GoogleSigninButton
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
         onPress={async () => {
           try {
             await GoogleSignin.hasPlayServices();
             const userInfo = await GoogleSignin.signIn();
             console.log(userInfo);
             if (userInfo.idToken) {
-              const {} = await supabase.auth.signInWithIdToken({
+              const { data } = await supabase.auth.signInWithIdToken({
                 provider: 'google',
                 token: userInfo.idToken,
               });
-              router.push('/home');
+              if (data) {
+                router.push('/onboarding');
+              }
             } else {
               throw new Error('no ID token present!');
             }
@@ -148,7 +149,7 @@ const SignInForm = () => {
             }
           }
         }}
-      />
+      /> */}
     </VStack>
   );
 };

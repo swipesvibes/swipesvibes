@@ -168,7 +168,7 @@ export default function SplashScreen() {
           </Center>
         </Box>
 
-        <Link href="/login" asChild>
+        <Link href="/onboarding" asChild>
           <Button size="xl">
             <Text color="$white">Start! 🌟</Text>
           </Button>

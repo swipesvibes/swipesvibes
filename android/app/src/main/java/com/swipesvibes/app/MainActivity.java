@@ -1,4 +1,4 @@
-package com.swipesvibes;
+package com.swipesvibes.app;
 
 import android.os.Build;
 import android.os.Bundle;
