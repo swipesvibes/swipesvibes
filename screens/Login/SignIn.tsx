@@ -46,6 +46,12 @@ import StyledExpoRouterLink from '../../components/StyledExpoRouterLink';
 
 import { styled } from '@gluestack-style/react';
 import supabase from '../../utils/supabase';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import { router } from 'expo-router';
 
 const StyledImage = styled(Image, {
   props: {
@@ -98,7 +104,6 @@ const SignInForm = () => {
       },
     });
     reset();
-    // Implement your own onSubmit and navigation logic here.
   };
 
   const handleKeyPress = () => {
@@ -108,32 +113,42 @@ const SignInForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleState = () => {
-    setShowPassword((showState) => {
-      return !showState;
-    });
-  };
-
-  const handleSignInWithGoogle = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-    });
-    console.log(data);
-  };
+  GoogleSignin.configure({
+    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+    iosClientId:
+      '811144421713-lgup0q377lnvj9jul6apvc02a0s1io2v.apps.googleusercontent.com',
+  });
 
   return (
     <VStack justifyContent="space-between">
-      <Button
-        onPress={async () =>
-          await supabase.auth
-            .signInWithOAuth({
-              provider: 'google',
-            })
-            .then((data) => console.log(data))
-        }
-      >
-        <Text>Sign in with Google</Text>
-      </Button>
+      <GoogleSigninButton
+        onPress={async () => {
+          try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log(userInfo);
+            if (userInfo.idToken) {
+              const {} = await supabase.auth.signInWithIdToken({
+                provider: 'google',
+                token: userInfo.idToken,
+              });
+              router.push('/home');
+            } else {
+              throw new Error('no ID token present!');
+            }
+          } catch (error: any) {
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+              // user cancelled the login flow
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+              // operation (e.g. sign in) is in progress already
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              // play services not available or outdated
+            } else {
+              // some other error happened
+            }
+          }
+        }}
+      />
     </VStack>
   );
 };
