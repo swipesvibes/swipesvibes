@@ -114,20 +114,27 @@ const SignInForm = () => {
     });
   };
 
+  const handleSignInWithGoogle = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+    });
+    console.log(data);
+  };
+
   return (
-    <>
-      <VStack justifyContent="space-between">
-        <Button
-          onClick={async () =>
-            await supabase.auth.signInWithOAuth({
+    <VStack justifyContent="space-between">
+      <Button
+        onPress={async () =>
+          await supabase.auth
+            .signInWithOAuth({
               provider: 'google',
             })
-          }
-        >
-          <Text>Sign in with Google</Text>
-        </Button>
-      </VStack>
-    </>
+            .then((data) => console.log(data))
+        }
+      >
+        <Text>Sign in with Google</Text>
+      </Button>
+    </VStack>
   );
 };
 

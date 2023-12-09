@@ -12,6 +12,7 @@ import { useColorScheme } from 'react-native';
 import { config } from '../gluestack-ui.config';
 import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '../providers/AuthProvider';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -57,18 +58,20 @@ function RootLayoutNav() {
   return (
     <QueryClientProvider client={queryClient}>
       <GluestackUIProvider config={config}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="signup" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          <Stack.Screen name="home" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <AuthProvider>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="signup" options={{ headerShown: false }} />
+            <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+            <Stack.Screen name="home" options={{ headerShown: false }} />
+            {/* <Stack.Screen name="profile" options={{ headerShown: false }} />
           <Stack.Screen name="settings" options={{ headerShown: false }} /> */}
-          {/* <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
+            {/* <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
         <Stack.Screen name="verify-otp" options={{ headerShown: false }} />
         <Stack.Screen name="create-password" options={{ headerShown: false }} /> */}
-        </Stack>
+          </Stack>
+        </AuthProvider>
       </GluestackUIProvider>
     </QueryClientProvider>
   );
