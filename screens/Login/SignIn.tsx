@@ -45,6 +45,7 @@ import GuestLayout from '../../layouts/GuestLayout';
 import StyledExpoRouterLink from '../../components/StyledExpoRouterLink';
 
 import { styled } from '@gluestack-style/react';
+import supabase from '../../utils/supabase';
 
 const StyledImage = styled(Image, {
   props: {
@@ -116,123 +117,16 @@ const SignInForm = () => {
   return (
     <>
       <VStack justifyContent="space-between">
-        <FormControl
-          isInvalid={(!!errors.email || isEmailFocused) && !!errors.email}
-          isRequired={true}
+        <Button
+          onClick={async () =>
+            await supabase.auth.signInWithOAuth({
+              provider: 'google',
+            })
+          }
         >
-          <Controller
-            name="email"
-            defaultValue=""
-            control={control}
-            rules={{
-              validate: async (value) => {
-                try {
-                  await signInSchema.parseAsync({ email: value });
-                  return true;
-                } catch (error: any) {
-                  return error.message;
-                }
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input>
-                <InputField
-                  fontSize="$sm"
-                  placeholder="Email"
-                  type="text"
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  onSubmitEditing={handleKeyPress}
-                  returnKeyType="done"
-                />
-              </Input>
-            )}
-          />
-          <FormControlError>
-            <FormControlErrorIcon size="md" as={AlertTriangle} />
-            <FormControlErrorText>
-              {errors?.email?.message}
-            </FormControlErrorText>
-          </FormControlError>
-        </FormControl>
-
-        <FormControl my="$6" isInvalid={!!errors.password} isRequired={true}>
-          <Controller
-            name="password"
-            defaultValue=""
-            control={control}
-            rules={{
-              validate: async (value) => {
-                try {
-                  await signInSchema.parseAsync({
-                    password: value,
-                  });
-                  return true;
-                } catch (error: any) {
-                  return error.message;
-                }
-              },
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input>
-                <InputField
-                  fontSize="$sm"
-                  placeholder="Password"
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  onSubmitEditing={handleKeyPress}
-                  returnKeyType="done"
-                  type={showPassword ? 'text' : 'password'}
-                />
-                <InputSlot onPress={handleState} pr="$3">
-                  <InputIcon as={showPassword ? EyeIcon : EyeOffIcon} />
-                </InputSlot>
-              </Input>
-            )}
-          />
-          <FormControlError>
-            <FormControlErrorIcon size="sm" as={AlertTriangle} />
-            <FormControlErrorText>
-              {errors?.password?.message}
-            </FormControlErrorText>
-          </FormControlError>
-
-          <FormControlHelper></FormControlHelper>
-        </FormControl>
+          <Text>Sign in with Google</Text>
+        </Button>
       </VStack>
-      <StyledExpoRouterLink ml="auto" href="/forgot-password">
-        <LinkText fontSize="$xs">Forgot password?</LinkText>
-      </StyledExpoRouterLink>
-      {/* <Controller
-        name="rememberme"
-        defaultValue={false}
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <Checkbox
-            my="$5"
-            size="sm"
-            value="Remember me"
-            isChecked={value}
-            onChange={onChange}
-            alignSelf="flex-start"
-          >
-            <CheckboxIndicator mr="$2">
-              <CheckboxIcon as={CheckIcon} />
-            </CheckboxIndicator>
-            <CheckboxLabel>Remember me and keep me logged in</CheckboxLabel>
-          </Checkbox>
-        )}
-      /> */}
-      <Button
-        variant="solid"
-        size="lg"
-        mt="$5"
-        onPress={handleSubmit(onSubmit)}
-      >
-        <ButtonText fontSize="$sm">SIGN IN</ButtonText>
-      </Button>
     </>
   );
 };
@@ -303,65 +197,6 @@ const Main = () => {
           Sign in to continue
         </Heading>
         <SignInForm />
-        {/* <HStack my="$4" space="md" alignItems="center" justifyContent="center">
-          <Divider
-            w="$2/6"
-            bg="$backgroundLight200"
-            sx={{ _dark: { bg: '$backgroundDark700' } }}
-          />
-          <Text
-            fontWeight="medium"
-            color="$textLight400"
-            sx={{ _dark: { color: '$textDark300' } }}
-          >
-            or
-          </Text>
-          <Divider
-            w="$2/6"
-            bg="$backgroundLight200"
-            sx={{ _dark: { bg: '$backgroundDark700' } }}
-          />
-        </HStack> */}
-        {/* <HStack
-          mt="$6"
-          sx={{
-            '@md': {
-              mt: '$4',
-            },
-          }}
-          mb="$9"
-          justifyContent="center"
-          alignItems="center"
-          space="lg"
-        >
-          <Link href="">
-            <Button action="secondary" variant="link" onPress={() => {}}>
-              <ButtonIcon as={FacebookIcon} />
-            </Button>
-          </Link>
-          <Link href="">
-            <Button action="secondary" variant="link" onPress={() => {}}>
-              <ButtonIcon as={GoogleIcon} />
-            </Button>
-          </Link>
-        </HStack> */}
-        <HStack
-          space="xs"
-          alignItems="center"
-          justifyContent="center"
-          mt="auto"
-        >
-          <Text
-            color="$textLight500"
-            fontSize="$sm"
-            sx={{ _dark: { color: '$textDark400' } }}
-          >
-            Don't have an account?
-          </Text>
-          <StyledExpoRouterLink href="/signup">
-            <LinkText fontSize="$sm">Sign up</LinkText>
-          </StyledExpoRouterLink>
-        </HStack>
       </Box>
     </>
   );
