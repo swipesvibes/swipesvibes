@@ -1,8 +1,6 @@
 import {
   Avatar,
-  AvatarBadge,
   AvatarFallbackText,
-  Box,
   Button,
   ButtonIcon,
   ButtonText,
@@ -11,29 +9,61 @@ import {
   InputField,
   Text,
   VStack,
-  View,
 } from '@gluestack-ui/themed';
 import React, { useState } from 'react';
 import * as ImagePicker from 'expo-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { LinearGradient } from 'expo-linear-gradient';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import OnboardingStep3 from '../components/OnboardingStep3';
 import Onboardingstep4 from '../components/OnboardingStep4';
 import OnboardingStep2 from '../components/OnboardingStep2';
 import OnboardingStep1 from '../components/OnBoardingStep1';
 import { router } from 'expo-router';
+import { Controller, useForm } from 'react-hook-form';
+import { authService, userService } from '../services';
 
 export default function Page() {
   const [avatar, setAvatar] = useState<string | null>(null);
   const [steps, setSteps] = useState(0);
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [gender, setGender] = useState();
-  const [preferences, setPreferences] = useState([]);
+  const [gender, setGender] = useState('male');
 
-  const onChange = (event: any, selectedDate: any) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
+  const { handleSubmit, control } = useForm();
+
+  const onClickNext = async (data: any) => {
+    let newStep = steps + 1;
+    let error = false;
+    if (steps === 0) {
+      try {
+        const { signup } = await authService.signup({
+          email: data.email,
+          password: data.password,
+        });
+        if (!signup) {
+          // router.push('/home');
+          // return;
+        }
+      } catch (error) {
+        error = true;
+      }
+    } else if (steps >= 1 && steps <= 3) {
+      if (steps === 3) {
+        try {
+          await userService.update({
+            ...data,
+            gender: (gender ?? '').toUpperCase(),
+            preferences: data.preferences.map((i: string) => i.toUpperCase()),
+          });
+        } catch (error) {
+          error = true;
+        }
+      }
+    } else {
+      newStep = 0;
+      router.push('/home');
+    }
+
+    if (!error) {
+      setSteps(newStep);
+    }
   };
 
   const pickImage = async () => {
@@ -49,8 +79,6 @@ export default function Page() {
       setAvatar(result.assets[0].uri);
     }
   };
-
-  console.log(gender);
 
   return (
     <VStack
@@ -72,32 +100,57 @@ export default function Page() {
             Pick a username for your new account! You can always change it later
             🙌🏻
           </Text>
-          <Input
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="Username" />
-          </Input>
-          <Input
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="Password" />
-          </Input>
+          <Controller
+            defaultValue=""
+            name="email"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                variant="outline"
+                size="md"
+                // isDisabled={false}
+                // isInvalid={false}
+                // isReadOnly={false}
+              >
+                <InputField
+                  placeholder="Email"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                />
+              </Input>
+            )}
+          />
+          <Controller
+            defaultValue=""
+            name="password"
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                variant="outline"
+                size="md"
+                // isDisabled={false}
+                // isInvalid={false}
+                // isReadOnly={false}
+              >
+                <InputField
+                  placeholder="Password"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  type="password"
+                />
+              </Input>
+            )}
+          />
         </>
       )}
 
-      {steps === 1 && <OnboardingStep1 />}
+      {steps === 1 && <OnboardingStep1 control={control} />}
 
       {steps === 2 && <OnboardingStep2 callback={setGender} />}
 
-      {steps === 3 && <OnboardingStep3 />}
+      {steps === 3 && <OnboardingStep3 control={control} />}
 
       {steps === 4 && <Onboardingstep4 />}
 
@@ -108,14 +161,7 @@ export default function Page() {
           bottom: 20,
           right: 20,
         }}
-        onPress={() => {
-          if (steps !== 4) {
-            setSteps(steps + 1);
-          } else {
-            setSteps(0);
-            router.push('/home');
-          }
-        }}
+        onPress={handleSubmit(onClickNext)}
       >
         <ButtonText mr={6}>Next</ButtonText>
         <ButtonIcon>
