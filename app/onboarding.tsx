@@ -33,11 +33,11 @@ export default function Page() {
     let error = false;
     if (steps === 0) {
       try {
-        const { signup } = await authService.signup({
+        const { exist } = await authService.signup({
           email: data.email,
           password: data.password,
         });
-        if (!signup) {
+        if (!exist) {
           // router.push('/home');
           // return;
         }

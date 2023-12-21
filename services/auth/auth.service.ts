@@ -14,12 +14,12 @@ class AuthService extends BaseService {
       data
     );
 
-    const { access_token, refresh_token, signup } = response.data;
+    const { access_token, refresh_token, exist } = response.data;
 
     await AsyncStorage.setItem('ACCESS_TOKEN', access_token);
     await AsyncStorage.setItem('REFRESH_TOKEN', refresh_token);
 
-    return { signup };
+    return { exist };
   }
 }
 
