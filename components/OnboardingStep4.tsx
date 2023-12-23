@@ -1,26 +1,26 @@
-import {
-  Avatar,
-  AvatarBadge,
-  AvatarFallbackText,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
+import { Input } from '@gluestack-ui/themed';
+import { InputField } from '@gluestack-ui/themed';
+import { VStack } from '@gluestack-ui/themed';
+import { Controller } from 'react-hook-form';
 
-const Onboardingstep4 = () => {
-  const username = 'John Doe';
+const Onboardingstep4 = ({ control }: any) => {
   return (
     <VStack flex={1} justifyContent="center" alignItems="center" space="2xl">
-      <VStack justifyContent="center" alignItems="center">
-        <Text>Here is a warm welcome you to “SWIPE”!🌈</Text>
-        <Text>Be yourself and go share your vibes!🌟</Text>
-      </VStack>
-
-      <VStack justifyContent="center" alignItems="center" space="2xl">
-        <Avatar size="xl">
-          <AvatarFallbackText>{username}</AvatarFallbackText>
-        </Avatar>
-        <Text>{username}</Text>
-      </VStack>
+      <Controller
+        defaultValue=""
+        name="code"
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Input variant="outline" size="md">
+            <InputField
+              placeholder="Invite Code"
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+            />
+          </Input>
+        )}
+      />
     </VStack>
   );
 };

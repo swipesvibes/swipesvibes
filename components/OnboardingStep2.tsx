@@ -20,7 +20,7 @@ const OnboardingStep2 = ({ callback }: OnboardingStep2Props) => {
           right: -75,
           width: 200,
           height: 200,
-          borderRadius: '100%',
+          borderRadius: 200,
         }}
         onPress={() => callback('male')}
       >
@@ -51,7 +51,7 @@ const OnboardingStep2 = ({ callback }: OnboardingStep2Props) => {
           bottom: 200,
           width: 200,
           height: 200,
-          borderRadius: '100%',
+          borderRadius: 200,
         }}
         onPress={() => callback('lgbtq')}
       >
@@ -78,7 +78,7 @@ const OnboardingStep2 = ({ callback }: OnboardingStep2Props) => {
           bottom: -75,
           width: 200,
           height: 200,
-          borderRadius: 100,
+          borderRadius: 200,
         }}
         onPress={() => callback('female')}
       >

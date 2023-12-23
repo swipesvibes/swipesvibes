@@ -14,10 +14,24 @@ class AuthService extends BaseService {
       data
     );
 
-    const { access_token, refresh_token, exist } = response.data;
+    const { accessToken, refreshToken, exist } = response.data;
 
-    await AsyncStorage.setItem('ACCESS_TOKEN', access_token);
-    await AsyncStorage.setItem('REFRESH_TOKEN', refresh_token);
+    await AsyncStorage.setItem('ACCESS_TOKEN', accessToken);
+    await AsyncStorage.setItem('REFRESH_TOKEN', refreshToken);
+
+    return { exist };
+  }
+
+  async signinWithSupabase(supabaseToken: string) {
+    const response = await this.client.post<SignupRes>(
+      '/api/v1/auth/login-with-supabase-token',
+      { accessToken: supabaseToken }
+    );
+
+    const { accessToken, refreshToken, exist } = response.data;
+
+    await AsyncStorage.setItem('ACCESS_TOKEN', accessToken);
+    await AsyncStorage.setItem('REFRESH_TOKEN', refreshToken);
 
     return { exist };
   }

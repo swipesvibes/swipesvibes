@@ -22,7 +22,7 @@
         "CFBundleURLTypes": [
           {
             "CFBundleURLSchemes": [
-              "com.googleusercontent.apps.811144421713-lgup0q377lnvj9jul6apvc02a0s1io2v"
+              "com.googleusercontent.apps.1026067912182-12v3coa9lp85he02dhd12tnm7b1a8ti8"
             ]
           }
         ]
@@ -42,7 +42,12 @@
     },
     "plugins": [
       "expo-router",
-      "@react-native-google-signin/google-signin"
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.1026067912182-12v3coa9lp85he02dhd12tnm7b1a8ti8"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
