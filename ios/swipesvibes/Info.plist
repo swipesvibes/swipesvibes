@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.googleusercontent.apps.811144421713-lgup0q377lnvj9jul6apvc02a0s1io2v</string>
+          <string>com.googleusercontent.apps.1026067912182-12v3coa9lp85he02dhd12tnm7b1a8ti8</string>
         </array>
       </dict>
     </array>
@@ -56,8 +56,6 @@
     <string>Allow $(PRODUCT_NAME) to access your photos</string>
     <key>NSUserActivityTypes</key>
     <array>
-      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
-      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
     </array>
     <key>UILaunchStoryboardName</key>
